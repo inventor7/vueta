@@ -10,7 +10,7 @@
     <div
       class="absolute inset-0 opacity-30 select-none"
       style="
-        background-image: url('/assets/grid-bg.png');
+        background-image: url('/grid-bg.png');
         background-size: cover;
         background-position: center;
       "
