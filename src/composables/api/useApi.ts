@@ -35,9 +35,10 @@ export function useApi<T>(
   const instance = createApiInstance();
   const query = useAxios<ApiResult<T>>(path, config, instance, options);
 
-  const onResultSuccess = createEventHook<T>();
-  const onResultError = createEventHook<APIError>();
-  const onErrorString = createEventHook<string>();
+  type EventCallback<V> = (value: V) => any;
+  const onResultSuccess = createEventHook<EventCallback<T>>();
+  const onResultError = createEventHook<EventCallback<APIError>>();
+  const onErrorString = createEventHook<EventCallback<string>>();
 
   const result = computed<T>(() => {
     if (query.data.value && "result" in query.data.value)
@@ -55,21 +56,32 @@ export function useApi<T>(
 
   const errorString = computed<string | undefined>(() => {
     if (resultError.value !== undefined) return resultError.value.data.message;
-    if (query.error.value !== undefined) return query.error.value?.message;
+    if (query.error.value !== undefined && query.error.value instanceof Error)
+      return query.error.value.message;
     return undefined;
   });
 
   whenever(query.isFinished, () => {
     if (errorString.value !== undefined) {
-      onErrorString.trigger(errorString.value);
+      onErrorString.trigger((value: string) => errorString.value);
     }
 
     if (query.data.value !== undefined) {
       if ("result" in query.data.value)
-        onResultSuccess.trigger(query.data.value.result);
+        onResultSuccess.trigger((value: T) => {
+          if (query.data.value && "result" in query.data.value) {
+            return query.data.value.result;
+          }
+          return value;
+        });
 
       if ("error" in query.data.value) {
-        onResultError.trigger(query.data.value.error);
+        onResultError.trigger((error: APIError) => {
+          if (query.data.value && "error" in query.data.value) {
+            return query.data.value.error;
+          }
+          return error;
+        });
       }
     }
   });
