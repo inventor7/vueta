@@ -12,7 +12,7 @@
       :style="glowStyles"
     />
     <img
-      src="/src/assets/me.jpg"
+      src="/src/assets/me.webp"
       alt="Cursor"
       class="relative w-full h-full rounded-full object-cover shadow-lg z-10 transition-opacity"
     />
