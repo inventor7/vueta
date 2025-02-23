@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen text-white relative overflow-hidden cursor-none"
+    class="h-screen text-white relative overflow-hidden"
     @mousemove="handleMouseMove"
     ref="container"
   >
@@ -69,6 +69,7 @@
 <script setup lang="ts">
 import { useMouseCursor } from "@/composables/useMouseCursor";
 import { BackgroundLayers, TheHeader, ActionButton } from "@/components/home";
+import { useLanguageStore } from "../../stores/useLanguageStore";
 
 const {
   mouseX,
@@ -81,6 +82,7 @@ const {
 
 const source = ref("https://github.com/inventor7/vueta.git");
 const { copy, copied } = useClipboard({ source });
+const { direction } = useLanguageStore();
 </script>
 
 <style>
