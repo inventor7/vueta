@@ -18,7 +18,6 @@ A feature-rich starter template for Vue 3 applications with batteries included.
 - 🎭 Dark mode support with system preference detection
 - 📱 Responsive design out of the box
 - ⚡️ RTL language support
-- 🧪 Testing setup with [Vitest](https://vitest.dev/) and [Cypress](https://www.cypress.io/)
 - 📝 Auto-imports for components and Vue APIs
 - 🔍 VS Code configuration included
 
@@ -51,11 +50,6 @@ pnpm dev           # Start development server
 # Building
 pnpm build         # Build for production
 pnpm preview       # Preview production build
-
-# Testing
-pnpm test:unit     # Run unit tests
-pnpm test:e2e      # Run end-to-end tests
-pnpm test:e2e:dev  # Run e2e tests against dev server
 
 # Type checking
 pnpm type-check    # Run TypeScript type checking
@@ -105,7 +99,6 @@ The template uses Tailwind CSS for styling and includes a built-in dark mode.
 │   ├── stores/         # Pinia stores
 │   └── views/          # Page components
 ├── public/             # Public static assets
-└── cypress/            # E2E tests
 ```
 
 ## 🤝 Contributing
