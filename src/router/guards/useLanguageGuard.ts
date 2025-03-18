@@ -5,27 +5,28 @@ import {
   SUPPORT_LOCALES,
   type LanguageCode,
   setupI18n,
+  i18n,
 } from "@/plugins/i18n";
 import { useLanguageStore } from "@/stores/useLanguageStore";
-
-// Initialize i18n instance
-const i18n = setupI18n();
 
 export const useLanguageGuard = async (
   to: RouteLocationNormalized,
   _from: RouteLocationNormalized,
   next: NavigationGuardNext
 ) => {
-  const paramsLocale = to.params.locale as LanguageCode | undefined;
-  const defaultLocale = import.meta.env.VITE_DEFAULT_LOCALE as LanguageCode;
   const languageStore = useLanguageStore();
 
+  const { defaultLocale, currentLanguage, direction, languages } =
+    storeToRefs(languageStore);
+
+  const paramsLocale = to.params.locale as LanguageCode | undefined;
+
   if (!paramsLocale) {
-    return next(`/${defaultLocale}${to.fullPath}`);
+    return next(`/${defaultLocale.value}${to.fullPath}`);
   }
 
   if (!SUPPORT_LOCALES.includes(paramsLocale)) {
-    return next(`/${defaultLocale}${to.fullPath}`);
+    return next(`/${defaultLocale.value}${to.fullPath}`);
   }
 
   if (!i18n.global.availableLocales.includes(paramsLocale)) {
@@ -33,8 +34,8 @@ export const useLanguageGuard = async (
   }
 
   setI18nLanguage(i18n, paramsLocale);
-  languageStore.currentLanguage = paramsLocale;
-  languageStore.direction = languageStore.languages[paramsLocale].dir;
+  currentLanguage.value = paramsLocale;
+  direction.value = languages.value[paramsLocale].dir;
 
   return next();
 };

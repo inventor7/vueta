@@ -13,9 +13,13 @@ interface LanguageInfo {
 
 export const useLanguageStore = defineStore("language", () => {
   const router = useRouter();
-  const currentLanguage = ref<LanguageCode>(
-    import.meta.env.VITE_DEFAULT_LOCALE as LanguageCode
+  const currentLanguage = ref<LanguageCode>();
+  const defaultLocale = ref<LanguageCode>(
+    navigator.language.split("-")[0] ||
+      import.meta.env.VITE_FALLBACK_LOCALE ||
+      "en"
   );
+
   const direction = ref<Direction>("ltr");
 
   const languages = computed<Record<LanguageCode, LanguageInfo>>(() => ({
@@ -35,10 +39,6 @@ export const useLanguageStore = defineStore("language", () => {
       dir: "rtl",
     },
   }));
-
-  const currentLanguageInfo = computed<LanguageInfo>(
-    () => languages.value[currentLanguage.value]
-  );
 
   async function setLanguage(locale: LanguageCode) {
     const currentRoute = router.currentRoute.value;
@@ -72,9 +72,9 @@ export const useLanguageStore = defineStore("language", () => {
 
   return {
     currentLanguage,
+    defaultLocale,
     direction,
     languages,
-    currentLanguageInfo,
     setLanguage,
     initializeLanguage,
   };

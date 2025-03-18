@@ -5,23 +5,16 @@ export type LanguageCode = "en" | "fr" | "ar";
 
 export const SUPPORT_LOCALES = ["en", "fr", "ar"] as const;
 
-type I18nOptions = {
-  locale: LanguageCode;
-  fallbackLocale?: LanguageCode;
-};
-
-export function setupI18n(
-  options: I18nOptions = { locale: import.meta.env.VITE_DEFAULT_LOCALE }
-) {
+export const i18n = setupI18n("en");
+export function setupI18n(locale: LanguageCode) {
   const i18n = createI18n({
     legacy: false,
-    locale: options.locale,
-    fallbackLocale:
-      options.fallbackLocale || import.meta.env.VITE_FALLBACK_LOCALE,
+    locale: locale,
+    fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE,
     messages: {},
   });
 
-  setI18nLanguage(i18n, options.locale);
+  setI18nLanguage(i18n, locale);
   return i18n;
 }
 
