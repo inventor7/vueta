@@ -1,14 +1,15 @@
 <template>
   <div class="absolute inset-0 -z-20 pointer-events-none">
-    <div class="absolute inset-0 opacity-20">
+    <div class="absolute inset-0 dark:opacity-20">
       <img
+        v-if="mode === 'dark'"
         src="/src/assets/globe.jpg"
         alt="Globe"
-        class="w-full h-full object-cover dark:mix-blend-lighten hue-rotate-[220deg] saturate-[1.2] select-none"
+        class="w-full flex-none dark:flex h-full object-cover dark:mix-blend-lighten hue-rotate-[220deg] saturate-[1.2] select-none"
       />
     </div>
     <div
-      class="absolute inset-0 opacity-30 select-none"
+      class="absolute inset-0 dark:opacity-30 select-none"
       style="
         background-image: url('/grid-bg.png');
         background-size: cover;
@@ -19,5 +20,7 @@
 </template>
 
 <script setup lang="ts">
-// Static component for background layers
+import { useColorMode } from "@vueuse/core";
+
+const mode = useColorMode({ disableTransition: false });
 </script>

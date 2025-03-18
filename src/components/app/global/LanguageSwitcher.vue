@@ -15,7 +15,7 @@ const switchLanguage = async (locale: LanguageCode) => {
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger>
-      <Button size="icon" variant="ghost">
+      <Button class="text-primary" size="icon" variant="ghost">
         <i-lucide-languages font-size="80" />
       </Button>
     </DropdownMenuTrigger>

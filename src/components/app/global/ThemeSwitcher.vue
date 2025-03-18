@@ -1,7 +1,7 @@
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button size="icon" variant="ghost">
+      <Button class="text-primary" size="icon" variant="ghost">
         <i-radix-icons-moon
           class="rotate-0 h-12 scale-100 transition-all dark:-rotate-90 dark:scale-0"
         />

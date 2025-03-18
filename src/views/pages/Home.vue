@@ -21,7 +21,7 @@
       <Badge class="mb-6"> Version 1.0 🎉 </Badge>
       <h1 class="text-4xl md:text-5xl lg:text-7xl font-black mb-4 md:mb-8">
         <span
-          class="bg-gradient-to-r from-zinc-50 to-zinc-400 text-transparent bg-clip-text"
+          class="bg-gradient-to-r from-slate-400 to-slate-900 dark:from-zinc-50 dark:to-zinc-400 text-transparent bg-clip-text"
         >
           The Modern Vue.js
           <br class="hidden sm:block" />
